@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -96,15 +97,15 @@ public class SelenideLoginTest {
         $(".title").shouldHave(text("Your Cart"));
 
         // Checkout
-        $("#checkout").click();
+        $("#checkout").click(usingJavaScript());
         $("#first-name").setValue("John");
         $("#last-name").setValue("Doe");
         $("#postal-code").setValue("12345");
-        $("#continue").click();
+        $("#continue").click(usingJavaScript());
 
         // Overview
         $(".summary_total_label").shouldBe(visible);
-        $("#finish").click();
+        $("#finish").click(usingJavaScript());
 
         // Confirmation
         assertThat($(".complete-header").getText()).containsIgnoringCase("Thank you");
