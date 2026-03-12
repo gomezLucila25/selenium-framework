@@ -1,6 +1,5 @@
 package com.epam.framework.core;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -33,8 +32,7 @@ public class DriverFactory {
     }
 
     private static WebDriver createChromeDriver() {
-        log.debug("Setting up ChromeDriver via WebDriverManager");
-        WebDriverManager.chromedriver().setup();
+        log.debug("Setting up ChromeDriver via Selenium Manager");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-maximized");
         options.addArguments("--disable-notifications");
@@ -43,8 +41,7 @@ public class DriverFactory {
     }
 
     private static WebDriver createChromeHeadlessDriver() {
-        log.debug("Setting up Chrome headless driver");
-        WebDriverManager.chromedriver().setup();
+        log.debug("Setting up Chrome headless driver via Selenium Manager");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
@@ -55,16 +52,14 @@ public class DriverFactory {
     }
 
     private static WebDriver createFirefoxDriver() {
-        log.debug("Setting up FirefoxDriver via WebDriverManager");
-        WebDriverManager.firefoxdriver().setup();
+        log.debug("Setting up FirefoxDriver via Selenium Manager");
         FirefoxOptions options = new FirefoxOptions();
         log.info("FirefoxDriver created successfully");
         return new FirefoxDriver(options);
     }
 
     private static WebDriver createEdgeDriver() {
-        log.debug("Setting up EdgeDriver via WebDriverManager");
-        WebDriverManager.edgedriver().setup();
+        log.debug("Setting up EdgeDriver via Selenium Manager");
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--start-maximized");
         log.info("EdgeDriver created successfully");

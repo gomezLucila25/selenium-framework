@@ -14,7 +14,7 @@ public abstract class BaseTest {
     protected final Logger log = LogManager.getLogger(getClass());
     protected ConfigProvider config;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
         log.info("------ Setting up test environment ------");
         config = ConfigProvider.getInstance();
@@ -22,7 +22,7 @@ public abstract class BaseTest {
         log.info("Test setup complete — base URL: [{}]", config.getBaseUrl());
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
         log.info("------ Tearing down test environment ------");
         DriverManager.quitDriver();

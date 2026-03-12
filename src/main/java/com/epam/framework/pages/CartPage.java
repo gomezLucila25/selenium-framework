@@ -2,6 +2,7 @@ package com.epam.framework.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class CartPage extends BasePage {
     public CheckoutPage proceedToCheckout() {
         log.info("Proceeding to checkout");
         click(checkoutButton);
+        wait.until(ExpectedConditions.urlContains("checkout-step-one"));
+        log.info("Navigated to checkout step 1");
         return new CheckoutPage();
     }
 
