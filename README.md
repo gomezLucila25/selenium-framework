@@ -1,58 +1,24 @@
-# EPAM Selenium Test Automation Framework
+# Selenium Framework — Base (Page Object · ThreadLocal driver · CI-ready)
 
-**AUT:** https://www.saucedemo.com
+> **Module 1 of my EPAM Test Automation track.** Each module added one layer to the same Selenium framework.
+> 👉 The complete, final version lives in **[selenium-framework-patterns](https://github.com/gomezLucila25/selenium-framework-patterns)**.
 
-## Project Structure
+## What this module added
 
-```
-src/
-├── main/java/com/epam/framework/
-│   ├── config/         ConfigProvider           — reads env properties
-│   ├── core/           DriverManager            — ThreadLocal WebDriver
-│   │                   DriverFactory            — creates browser instances
-│   ├── model/          User, Product, Order     — business objects
-│   ├── pages/          BasePage, LoginPage,     — Page Object / PageFactory
-│   │                   InventoryPage, CartPage,
-│   │                   CheckoutPage
-│   └── utils/          ScreenshotUtils          — screenshot on failure
-│                       HighlightUtils           — BONUS: element highlight
-│
-├── main/resources/
-│   ├── log4j2.xml                               — console + rolling file
-│   └── config/
-│       ├── qa.properties
-│       └── dev.properties
-│
-└── test/java/com/epam/framework/
-    ├── listeners/  TestListener                  — screenshot on failure hook
-    └── tests/      BaseTest, LoginTest,
-                    CartTest, CheckoutTest,
-                    SelenideLoginTest             — BONUS: Selenide
-```
+- Base framework for [SauceDemo](https://www.saucedemo.com): **Page Object + PageFactory**, business objects (`User`, `Product`, `Order`).
+- **ThreadLocal WebDriver** and a driver factory for Chrome, Firefox, Edge and headless.
+- Environment config (`qa` / `dev`) and **smoke / regression** TestNG suites.
+- Screenshot on failure through a TestNG listener, and Log4j2 logging.
+- A **Jenkinsfile** with parameters for browser, env and suite, which publishes JUnit results and archives screenshots.
+- A Selenide version of the login tests as a bonus.
+- Kept working against a React SPA and Chrome 145 (JS-click workaround for checkout navigation).
 
-## Running Tests
+## Stack
 
-### Default (Chrome, QA, Smoke)
+Java 17 · Selenium 4 · TestNG · Selenide · Log4j2 · Maven · Jenkins
+
+## Run
+
 ```bash
 mvn clean test
 ```
-
-### Custom browser / env / suite
-```bash
-mvn clean test -Dbrowser=firefox -Denv=dev -Dsuite=regression
-```
-
-### Headless (CI)
-```bash
-mvn clean test -Dbrowser=chrome-headless -Denv=qa -Dsuite=smoke
-```
-
-## CI — Jenkins
-
-Configure the pipeline using the provided `Jenkinsfile`.  
-Parameters `BROWSER`, `ENV`, and `SUITE` are selectable from the Jenkins UI.
-
-After each run:
-- Test results are shown in **Test Result Trend** graph (`junit`)
-- Screenshots are archived as **Build Artifacts** under `target/screenshots/`
-- Logs are archived under `target/logs/`
